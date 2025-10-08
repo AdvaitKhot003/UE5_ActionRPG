@@ -1,0 +1,16 @@
+// Copyright Advait Khot
+
+
+#include "DataAssets/Input/DataAsset_InputConfig.h"
+
+UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplayTag& InInputTag)
+{
+	for (const auto& [InputTag, InputAction] : NativeInputActions)
+	{
+		if (InputTag == InInputTag && InputAction)
+		{
+			return InputAction;
+		}
+	}
+	return nullptr;
+}
