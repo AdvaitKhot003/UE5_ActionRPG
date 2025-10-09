@@ -31,13 +31,13 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	/** Begin Components **/
+	/** Begin Camera Components **/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	/** End Components **/
+	/** End Camera Components **/
 
 	/** Begin Input **/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
