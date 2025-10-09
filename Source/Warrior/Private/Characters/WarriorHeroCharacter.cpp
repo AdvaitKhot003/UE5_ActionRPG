@@ -10,6 +10,7 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/WarriorInputComponent.h"
 #include "GameplayTags/WarriorGameplayTags.h"
+#include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
 
 #include "DebugHelpers/WarriorDebugHelper.h"
 
@@ -25,12 +26,12 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 200.f;
 	CameraBoom->SocketOffset = FVector(0.f, 55.f, 65.f);
-	CameraBoom->bUsePawnControlRotation = true;
 	CameraBoom->bEnableCameraLag = true;
-	CameraBoom->CameraLagSpeed = 15.f;
-	CameraBoom->CameraLagMaxDistance = 50.f;
+	CameraBoom->CameraLagSpeed = 10.f;
+	CameraBoom->CameraLagMaxDistance = 100.f;
 	CameraBoom->bEnableCameraRotationLag = true;
 	CameraBoom->CameraRotationLagSpeed = 10.f;
+	CameraBoom->bUsePawnControlRotation = true;
 	
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -42,6 +43,19 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	GetMesh()->BoundsScale = 3.f;
+}
+
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{
+		const FString AscText = FString::Format(TEXT("OwnerActor: {0}, AvatarActor: {1}"),
+			{ WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+			  WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel() });
+		Debug::Print(AscText, FColor::Green);
+	}
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -100,6 +114,4 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Debug::Print(TEXT("Working"));
 }

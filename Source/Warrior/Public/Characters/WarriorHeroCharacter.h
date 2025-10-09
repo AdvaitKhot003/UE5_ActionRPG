@@ -23,23 +23,27 @@ public:
 	AWarriorHeroCharacter();
 
 protected:
+	/** Begin APawn Interface **/
+	virtual void PossessedBy(AController* NewController) override;
+	/** End APawn Interface **/
+	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
 private:
-	// Components Start
+	/** Begin Components **/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	// Components End
+	/** End Components **/
 
-	// Inputs Start
+	/** Begin Input **/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* InputConfigDataAsset;
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
-	// Inputs End
+	/** End Input **/
 };
