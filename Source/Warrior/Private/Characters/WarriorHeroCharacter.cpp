@@ -11,6 +11,7 @@
 #include "Components/Input/WarriorInputComponent.h"
 #include "GameplayTags/WarriorGameplayTags.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "DataAssets/StartUpData/DataAsset_BaseStartUpData.h"
 
 #include "DebugHelpers/WarriorDebugHelper.h"
 
@@ -56,13 +57,21 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 			  WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel() });
 		Debug::Print(AscText, FColor::Green);
 	}
+
+	if (!CharacterStartUpDataAsset.IsNull())
+	{
+		if (UDataAsset_BaseStartUpData* LoadedData = CharacterStartUpDataAsset.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent, 1);
+		}
+	}
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	checkf(InputConfigDataAsset, TEXT("Forgot to assign InputConfigDataAsset in %s"), *GetName())
+	checkf(InputConfigDataAsset, TEXT("Forgot to assign InputConfigDataAsset in %s"), *GetName());
 	
 	const ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
