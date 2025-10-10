@@ -5,8 +5,7 @@
 #include "Components/AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
 
-void UDataAsset_BaseStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAscToGive,
-	const int32 ApplyLevel)
+void UDataAsset_BaseStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
 {
 	check(InAscToGive);
 
@@ -15,7 +14,7 @@ void UDataAsset_BaseStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySys
 }
 
 void UDataAsset_BaseStartUpData::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InAbilitiesToGive,
-	UWarriorAbilitySystemComponent* InAscToGive, const int32 ApplyLevel)
+	UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
 {
 	if (InAbilitiesToGive.IsEmpty())
 	{
