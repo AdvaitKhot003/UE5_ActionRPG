@@ -13,7 +13,8 @@ UENUM(BlueprintType)
 enum class EWarriorAbilityActivationPolicy : uint8
 {
 	OnTriggered,
-	OnGiven
+	OnGiven,
+	None
 };
 
 /**
@@ -23,7 +24,11 @@ UCLASS()
 class WARRIOR_API UWarriorGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
-
+	
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WarriorAbility")
+	EWarriorAbilityActivationPolicy AbilityActivationPolicy = EWarriorAbilityActivationPolicy::None;
+	
 protected:
 	/** Begin UGameplayAbility Interface **/
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
@@ -31,9 +36,6 @@ protected:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 	/** End UGameplayAbility Interface **/
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WarriorAbility")
-	EWarriorAbilityActivationPolicy AbilityActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
 
 	UFUNCTION(BlueprintPure, Category = "WarriorAbility")
 	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
