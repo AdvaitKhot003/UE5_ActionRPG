@@ -83,10 +83,10 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 
 	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
 
-	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::Input_Move,
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move,
 		ETriggerEvent::Triggered, this, &AWarriorHeroCharacter::Input_Move);
 
-	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::Input_Look,
+	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look,
 		ETriggerEvent::Triggered, this, &AWarriorHeroCharacter::Input_Look);
 }
 
