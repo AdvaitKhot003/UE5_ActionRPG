@@ -7,6 +7,7 @@
 #include "WarriorHeroCharacter.generated.h"
 
 struct FInputActionValue;
+class UHeroCombatComponent;
 class UDataAsset_InputConfig;
 class UCameraComponent;
 class USpringArmComponent;
@@ -21,6 +22,8 @@ class WARRIOR_API AWarriorHeroCharacter : public AWarriorBaseCharacter
 
 public:
 	AWarriorHeroCharacter();
+
+	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
 
 protected:
 	/** Begin APawn Interface **/
@@ -39,6 +42,11 @@ private:
 	UCameraComponent* FollowCamera;
 	/** End Camera Components **/
 
+	/** Begin Combat Components **/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UHeroCombatComponent* HeroCombatComponent;
+	/** End Combat Components **/
+	
 	/** Begin Input **/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData|InputData", meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* InputConfigDataAsset;

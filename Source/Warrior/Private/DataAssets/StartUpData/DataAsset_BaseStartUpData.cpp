@@ -22,11 +22,11 @@ void UDataAsset_BaseStartUpData::GrantAbilities(const TArray<TSubclassOf<UWarrio
 		return;
 	}
 
-	for (const TSubclassOf<UWarriorGameplayAbility>& Ability : InAbilitiesToGive)
+	for (const TSubclassOf<UWarriorGameplayAbility>& FoundAbility : InAbilitiesToGive)
 	{
-		if (!Ability) continue;
+		if (!FoundAbility) continue;
 
-		FGameplayAbilitySpec AbilitySpec(Ability);
+		FGameplayAbilitySpec AbilitySpec(FoundAbility);
 		AbilitySpec.SourceObject = InAscToGive->GetAvatarActor();
 		AbilitySpec.Level = ApplyLevel;
 		

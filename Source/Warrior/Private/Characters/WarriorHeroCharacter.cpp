@@ -12,6 +12,7 @@
 #include "GameplayTags/WarriorGameplayTags.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "DataAssets/StartUpData/DataAsset_BaseStartUpData.h"
+#include "Components/Combat/HeroCombatComponent.h"
 
 #include "DebugHelpers/WarriorDebugHelper.h"
 
@@ -44,6 +45,8 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	GetMesh()->BoundsScale = 3.f;
+
+	HeroCombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("HeroCombatComponent"));
 }
 
 void AWarriorHeroCharacter::PossessedBy(AController* NewController)
