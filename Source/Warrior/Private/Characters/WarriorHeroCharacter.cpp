@@ -113,16 +113,16 @@ void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue
 
 void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 {
-	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
+	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
 
-	if (MovementVector.Y != 0.f)
+	if (LookAxisVector.Y != 0.f)
 	{
-		AddControllerPitchInput(MovementVector.Y);
+		AddControllerPitchInput(LookAxisVector.Y);
 	}
 
-	if (MovementVector.X != 0.f)
+	if (LookAxisVector.X != 0.f)
 	{
-		AddControllerYawInput(MovementVector.X);
+		AddControllerYawInput(LookAxisVector.X);
 	}
 }
 
