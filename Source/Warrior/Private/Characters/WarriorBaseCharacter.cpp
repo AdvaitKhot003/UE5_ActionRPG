@@ -3,7 +3,6 @@
 
 #include "Characters/WarriorBaseCharacter.h"
 
-// Sets default values
 AWarriorBaseCharacter::AWarriorBaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
