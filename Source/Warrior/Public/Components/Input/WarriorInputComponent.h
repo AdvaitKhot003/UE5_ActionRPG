@@ -25,7 +25,7 @@ template <class UserObject, typename CallbackFunction>
 void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
 	const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunction Function)
 {
-	checkf(InInputConfig, TEXT("Warning: UDataAsset_InputConfig is nullptr."));
+	checkf(InInputConfig, TEXT("Warning: UDataAsset_InputConfig* InInputConfig is nullptr."));
 
 	if (UInputAction* FoundInputAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{

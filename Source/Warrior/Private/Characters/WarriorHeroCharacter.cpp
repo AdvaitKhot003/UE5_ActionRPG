@@ -45,11 +45,11 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	checkf(InputConfigDataAsset, TEXT("Warning: UDataAsset_InputConfig is nullptr."));
+	checkf(InputConfigDataAsset, TEXT("Warning: UDataAsset_InputConfig* InputConfigDataAsset is nullptr."));
 	
 	const ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
-	checkf(Subsystem, TEXT("Warning: UEnhancedInputLocalPlayerSubsystem is nullptr."));
+	checkf(Subsystem, TEXT("Warning: UEnhancedInputLocalPlayerSubsystem* Subsystem is nullptr."));
 	Subsystem->AddMappingContext(InputConfigDataAsset->InputMappingContext, 0);
 
 	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
