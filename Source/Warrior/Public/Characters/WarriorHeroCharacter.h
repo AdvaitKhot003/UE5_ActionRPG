@@ -23,6 +23,7 @@ public:
 	AWarriorHeroCharacter();
 
 protected:
+	virtual void PossessedBy(AController* NewController) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 
