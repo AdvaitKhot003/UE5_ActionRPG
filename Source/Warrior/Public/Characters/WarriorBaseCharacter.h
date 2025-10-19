@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "WarriorBaseCharacter.generated.h"
 
+class UDataAsset_StartUpDataBase;
 class UWarriorAttributeSet;
 class UWarriorAbilitySystemComponent;
 
@@ -31,4 +32,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UWarriorAttributeSet* WarriorAttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "DataAsset|StartUpData")
+	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpDataAsset;
 };
