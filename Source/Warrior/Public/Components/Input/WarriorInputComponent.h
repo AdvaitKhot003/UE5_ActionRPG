@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "DataAsset/DataAsset_InputConfig.h"
+#include "DataAssets/Input//DataAsset_InputConfig.h"
 #include "WarriorInputComponent.generated.h"
 
 /**

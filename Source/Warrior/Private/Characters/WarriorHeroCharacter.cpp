@@ -7,7 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "DataAsset/DataAsset_InputConfig.h"
+#include "DataAssets/Input//DataAsset_InputConfig.h"
 #include "Components/Input/WarriorInputComponent.h"
 #include "WarriorGameplayTags.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
