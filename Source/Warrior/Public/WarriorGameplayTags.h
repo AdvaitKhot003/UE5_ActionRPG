@@ -12,6 +12,10 @@ namespace WarriorGameplayTags
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_EquipAxe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_UnequipAxe);
 
+	/** Event Tags **/
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Equip_Axe);
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Unequip_Axe);
+
 	/** Player Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Weapon_Axe);
 }
