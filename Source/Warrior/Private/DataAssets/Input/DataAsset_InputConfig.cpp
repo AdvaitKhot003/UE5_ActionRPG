@@ -7,7 +7,7 @@ UInputAction* UDataAsset_InputConfig::FindNativeInputActionByTag(const FGameplay
 {
 	for (const FWarriorInputActionConfig& NativeInputActionConfig : NativeInputActions)
 	{
-		if (NativeInputActionConfig.InputTag == InInputTag && NativeInputActionConfig.IsValid())
+		if (NativeInputActionConfig.IsValid() && NativeInputActionConfig.InputTag == InInputTag)
 		{
 			return NativeInputActionConfig.InputAction;
 		}

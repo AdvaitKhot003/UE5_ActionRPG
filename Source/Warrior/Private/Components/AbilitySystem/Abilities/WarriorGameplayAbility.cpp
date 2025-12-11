@@ -25,7 +25,7 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
 
 	if (AbilityActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
 	{
-		if (ActorInfo && Handle.IsValid())
+		if (ActorInfo)
 		{
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
