@@ -35,5 +35,5 @@ struct FWarriorHeroWeaponData
 	UInputMappingContext* WeaponInputMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+	TArray<FWarriorHeroAbilitySet> WeaponEquippedAbilitySets;
 };
