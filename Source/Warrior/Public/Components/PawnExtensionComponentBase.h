@@ -6,7 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "PawnExtensionComponentBase.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class WARRIOR_API UPawnExtensionComponentBase : public UActorComponent
 {
