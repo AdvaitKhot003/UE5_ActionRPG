@@ -41,7 +41,25 @@ void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarr
 		AbilitySpec.Level = ApplyLevel;
 		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilitySet.InputTag);
 		
-		GiveAbility(AbilitySpec);
-		OutGrantedAbilitySpecHandles.AddUnique(GiveAbility(AbilitySpec));
+		const FGameplayAbilitySpecHandle Handle = GiveAbility(AbilitySpec);
+		OutGrantedAbilitySpecHandles.AddUnique(Handle);
 	}
+}
+
+void UWarriorAbilitySystemComponent::RemoveGrantedHeroWeaponAbilities(TArray<FGameplayAbilitySpecHandle>& InGrantedAbilitySpecHandlesToRemove)
+{
+	if (InGrantedAbilitySpecHandlesToRemove.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FGameplayAbilitySpecHandle& SpecHandle : InGrantedAbilitySpecHandlesToRemove)
+	{
+		if (SpecHandle.IsValid())
+		{
+			ClearAbility(SpecHandle);
+		}
+	}
+
+	InGrantedAbilitySpecHandlesToRemove.Empty();
 }

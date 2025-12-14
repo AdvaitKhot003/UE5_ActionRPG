@@ -21,4 +21,7 @@ namespace WarriorGameplayTags
 
 	/** Player Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Weapon_Axe, "PlayerTag.Weapon.Axe");
+
+	/** State Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
 }

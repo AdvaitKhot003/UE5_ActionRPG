@@ -22,4 +22,7 @@ namespace WarriorGameplayTags
 
 	/** Player Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Weapon_Axe);
+
+	/** State Tags **/
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_State_WeaponTransition);
 }
