@@ -28,4 +28,7 @@ namespace WarriorGameplayTags
 
 	/** State Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
+
+	/** Status Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
 }
