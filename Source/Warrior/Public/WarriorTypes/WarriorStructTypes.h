@@ -14,6 +14,8 @@ struct FWarriorHeroAbilitySet
 {
 	GENERATED_BODY()
 
+	FWarriorHeroAbilitySet() : AbilityToGrant(nullptr){}
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
 	FGameplayTag InputTag;
 
@@ -27,6 +29,8 @@ USTRUCT(BlueprintType)
 struct FWarriorHeroWeaponData
 {
 	GENERATED_BODY()
+	
+	FWarriorHeroWeaponData() : WeaponAnimLayerToLink(nullptr), WeaponInputMappingContext(nullptr){}
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink;
