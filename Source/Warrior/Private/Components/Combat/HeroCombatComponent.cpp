@@ -8,3 +8,13 @@ AWarriorHeroWeapon* UHeroCombatComponent::GetHeroCarriedWeaponByTag(FGameplayTag
 {
 	return Cast<AWarriorHeroWeapon>(GetCharacterCarriedWeaponByTag(InWeaponTagToGet));
 }
+
+void UHeroCombatComponent::ResetLightAttackComboCount()
+{
+	CurrentLightAttackComboCount = 1;
+
+	if (GetWorld()->GetTimerManager().IsTimerActive(LightComboCountResetTimerHandle))
+	{
+		GetWorld()->GetTimerManager().ClearTimer(LightComboCountResetTimerHandle);
+	}
+}

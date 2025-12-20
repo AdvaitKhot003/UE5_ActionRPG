@@ -19,4 +19,13 @@ class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponent
 public:
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
 	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
+	int32 CurrentLightAttackComboCount = 1;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
+	FTimerHandle LightComboCountResetTimerHandle;
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+	void ResetLightAttackComboCount();
 };
