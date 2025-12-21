@@ -22,6 +22,11 @@ public:
 	FORCEINLINE UEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent; }
 
 protected:
+	virtual void PossessedBy(AController* NewController) override;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	UEnemyCombatComponent* EnemyCombatComponent;
+
+private:
+	void InitEnemyStartUpData();
 };

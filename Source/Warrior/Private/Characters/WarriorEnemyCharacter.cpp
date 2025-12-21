@@ -4,6 +4,10 @@
 #include "Characters/WarriorEnemyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "Engine/AssetManager.h"
+#include "DataAssets/StartUpData/DataAsset_EnemyStartUpData.h"
+
+#include "WarriorDebugHelper.h"
 
 AWarriorEnemyCharacter::AWarriorEnemyCharacter()
 {
@@ -20,4 +24,41 @@ AWarriorEnemyCharacter::AWarriorEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>("EnemyCombatComponent");
+}
+
+void AWarriorEnemyCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	InitEnemyStartUpData();
+}
+
+void AWarriorEnemyCharacter::InitEnemyStartUpData()
+{
+	if (CharacterStartUpDataAsset.IsNull() || !WarriorAbilitySystemComponent)
+	{
+		return;
+	}
+
+	TWeakObjectPtr<AWarriorEnemyCharacter> WeakThis(this);
+
+	UAssetManager::GetStreamableManager().RequestAsyncLoad(
+		CharacterStartUpDataAsset.ToSoftObjectPath(),
+		FStreamableDelegate::CreateLambda(
+			[WeakThis]()
+			{
+				if (!WeakThis.IsValid())
+				{
+					return;
+				}
+
+				if (UDataAsset_StartUpDataBase* LoadedData = WeakThis->CharacterStartUpDataAsset.Get())
+				{
+					LoadedData->GiveToAbilitySystemComponent(WeakThis->WarriorAbilitySystemComponent);
+
+					Debug::Print(TEXT("Enemy Start Up Data Loaded:"), FColor::Green);
+				}
+			}
+		)
+	);
 }

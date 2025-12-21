@@ -2,7 +2,7 @@
 
 
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "Components/AbilitySystem/Abilities/WarriorGameplayAbility.h"
+#include "Components/AbilitySystem/Abilities/WarriorHeroGameplayAbility.h"
 
 void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {

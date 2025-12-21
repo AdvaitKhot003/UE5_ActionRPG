@@ -15,5 +15,10 @@ AWarriorEnemyCharacter* UWarriorEnemyGameplayAbility::GetEnemyCharacterFromActor
 
 UEnemyCombatComponent* UWarriorEnemyGameplayAbility::GetEnemyCombatComponentFromActorInfo()
 {
-	return GetEnemyCharacterFromActorInfo()->GetEnemyCombatComponent();
+	if (AWarriorEnemyCharacter* EnemyCharacter = GetEnemyCharacterFromActorInfo())
+	{
+		return EnemyCharacter->GetEnemyCombatComponent();
+	}
+
+	return nullptr;
 }
