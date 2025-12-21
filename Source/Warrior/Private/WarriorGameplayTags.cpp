@@ -32,4 +32,7 @@ namespace WarriorGameplayTags
 
 	/** Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
+
+	/** Enemy Weapon Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
 }
