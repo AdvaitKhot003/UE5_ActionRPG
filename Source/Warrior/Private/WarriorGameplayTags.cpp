@@ -25,6 +25,9 @@ namespace WarriorGameplayTags
 
 	/** Weapon Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Weapon_Axe, "PlayerTag.Weapon.Axe");
+	
+	/** Enemy Weapon Tags **/
+    UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
 
 	/** State Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
@@ -32,7 +35,4 @@ namespace WarriorGameplayTags
 
 	/** Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
-
-	/** Enemy Weapon Tags **/
-	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
 }
