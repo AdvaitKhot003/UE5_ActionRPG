@@ -17,6 +17,9 @@ void UPawnCombatComponent::RegisterSpawnedWeaponByTag(FGameplayTag InWeaponTagTo
 
 	CharacterCarriedWeaponMap.Emplace(InWeaponTagToRegister, InWeaponToRegister);
 
+	InWeaponToRegister->OnWeaponBeginHitTarget.BindUObject(this, &ThisClass::OnWeaponBeginHitTargetActor);
+	InWeaponToRegister->OnWeaponEndHitTarget.BindUObject(this, &ThisClass::OnWeaponEndHitTargetActor);
+
 	if (bRegisteredAsEquippedWeapon)
 	{
 		CurrentEquippedWeaponTag = InWeaponTagToRegister;
@@ -68,4 +71,14 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnableCollision, ET
 			WeaponCollisionToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
 		}
 	}
+}
+
+void UPawnCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
+{
+	
+}
+
+void UPawnCombatComponent::OnWeaponEndHitTargetActor(AActor* HitEndActor)
+{
+	
 }

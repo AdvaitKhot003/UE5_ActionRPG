@@ -28,4 +28,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
 	void ResetLightAttackComboCount();
+
+	virtual void OnWeaponBeginHitTargetActor(AActor* HitBeginActor) override;
+	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor) override;
 };

@@ -8,6 +8,8 @@
 
 class UBoxComponent;
 
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+
 UCLASS()
 class WARRIOR_API AWarriorWeaponBase : public AActor
 {
@@ -17,6 +19,9 @@ public:
 	AWarriorWeaponBase();
 
 	FORCEINLINE UBoxComponent* GetWeaponCollisionBox() const { return WeaponCollisionBox; }
+
+	FOnTargetInteractedDelegate OnWeaponBeginHitTarget;
+	FOnTargetInteractedDelegate OnWeaponEndHitTarget;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapons")
