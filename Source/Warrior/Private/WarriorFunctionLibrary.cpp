@@ -16,6 +16,8 @@ void UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGame
 {
 	UWarriorAbilitySystemComponent* WarriorAsc = NativeGetWarriorAscFromActor(InActor);
 
+	if (!WarriorAsc) return;
+
 	if (!WarriorAsc->HasMatchingGameplayTag(InGameplayTagToAdd))
 	{
 		WarriorAsc->AddLooseGameplayTag(InGameplayTagToAdd);
@@ -26,6 +28,8 @@ void UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor,
 {
 	UWarriorAbilitySystemComponent* WarriorAsc = NativeGetWarriorAscFromActor(InActor);
 
+	if (!WarriorAsc) return;
+
 	if (WarriorAsc->HasMatchingGameplayTag(InGameplayTagToRemove))
 	{
 		WarriorAsc->RemoveLooseGameplayTag(InGameplayTagToRemove);
@@ -35,6 +39,8 @@ void UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfFound(AActor* InActor,
 bool UWarriorFunctionLibrary::NativeDoesActorHaveTag(AActor* InActor, FGameplayTag InGameplayTagToCheck)
 {
 	UWarriorAbilitySystemComponent* WarriorAsc = NativeGetWarriorAscFromActor(InActor);
+
+	if (!WarriorAsc) return false;
 
 	return WarriorAsc->HasMatchingGameplayTag(InGameplayTagToCheck);
 }

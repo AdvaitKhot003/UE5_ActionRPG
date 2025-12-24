@@ -57,20 +57,19 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	InitHeroStartUpData();
+}
+
+void AWarriorHeroCharacter::InitHeroStartUpData()
+{
+	if (CharacterStartUpDataAsset.IsNull() || !WarriorAbilitySystemComponent)
 	{
-		const FString AscText = FString::Printf(TEXT("Owner Actor: %s, Avatar Actor: %s"),
-			*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
-			*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
-		Debug::Print(AscText, FColor::Green);
+		return;
 	}
 
-	if (!CharacterStartUpDataAsset.IsNull())
+	if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpDataAsset.LoadSynchronous())
 	{
-		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpDataAsset.LoadSynchronous())
-		{
-			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
-		}
+		LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
 	}
 }
 
@@ -141,6 +140,4 @@ void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Debug::Print(TEXT("Working"));
 }
