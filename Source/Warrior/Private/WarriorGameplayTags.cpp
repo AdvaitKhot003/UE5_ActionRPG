@@ -23,6 +23,9 @@ namespace WarriorGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Equip_Axe, "PlayerTag.Event.Equip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Unequip_Axe, "PlayerTag.Event.Unequip.Axe");
 
+	/** Shared Event Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Event_MeleeHit, "SharedTag.Event.MeleeHit");
+
 	/** Weapon Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Weapon_Axe, "PlayerTag.Weapon.Axe");
 	

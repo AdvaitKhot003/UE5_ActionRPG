@@ -44,6 +44,9 @@ public:
 
 	virtual void OnWeaponBeginHitTargetActor(AActor* HitBeginActor);
 	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor);
+
+protected:
+	TArray<AActor*>OverlapedActors;
 	
 private:
 	UPROPERTY()

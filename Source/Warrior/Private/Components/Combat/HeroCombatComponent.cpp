@@ -3,6 +3,8 @@
 
 #include "Components/Combat/HeroCombatComponent.h"
 #include "Items/Weapons/WarriorHeroWeapon.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "WarriorGameplayTags.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -23,14 +25,22 @@ void UHeroCombatComponent::ResetLightAttackComboCount()
 
 void UHeroCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
 {
-	Debug::Print(
-		GetOwningPawn()->GetActorNameOrLabel() + TEXT(" begin hit ") + HitBeginActor->GetActorNameOrLabel(),
-		FColor::Green);
+	if (OverlapedActors.Contains(HitBeginActor))
+	{
+		return;
+	}
+
+	OverlapedActors.AddUnique(HitBeginActor);
+
+	FGameplayEventData EventData;
+	EventData.Instigator = GetOwningPawn();
+	EventData.Target = HitBeginActor;
+	
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		GetOwningPawn(), WarriorGameplayTags::SharedTag_Event_MeleeHit, EventData);
 }
 
 void UHeroCombatComponent::OnWeaponEndHitTargetActor(AActor* HitEndActor)
 {
-	Debug::Print(
-		GetOwningPawn()->GetActorNameOrLabel() + TEXT(" end hit ") + HitEndActor->GetActorNameOrLabel(),
-		FColor::Red);
+	
 }
