@@ -38,4 +38,7 @@ namespace WarriorGameplayTags
 
 	/** Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
+
+	/** Shared Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(SharedTag_SetByCaller_BaseDamage, "SharedTag.SetByCaller.BaseDamage");
 }
