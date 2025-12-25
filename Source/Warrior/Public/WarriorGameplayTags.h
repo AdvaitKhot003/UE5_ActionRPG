@@ -31,7 +31,7 @@ namespace WarriorGameplayTags
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Weapon_Axe);
 	
 	/** Enemy Weapon Tags **/
-    WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(EnemyTag_Weapon);
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(EnemyTag_Weapon);
 
 	/** State Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_State_WeaponTransition);

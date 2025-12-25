@@ -30,7 +30,7 @@ namespace WarriorGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Weapon_Axe, "PlayerTag.Weapon.Axe");
 	
 	/** Enemy Weapon Tags **/
-    UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
+	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
 
 	/** State Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
