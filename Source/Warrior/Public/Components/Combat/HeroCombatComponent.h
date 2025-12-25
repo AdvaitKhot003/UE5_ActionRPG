@@ -20,6 +20,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
 	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
 
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorHeroWeapon* GetHeroCurrentEquippedWeapon() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+	float GetHeroCurrentEquippedWeaponDamageAtLevel(float InLevel) const;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
 	int32 CurrentLightAttackComboCount = 1;
 

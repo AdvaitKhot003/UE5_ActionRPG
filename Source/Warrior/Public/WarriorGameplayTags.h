@@ -42,4 +42,7 @@ namespace WarriorGameplayTags
 
 	/** Shared Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_SetByCaller_BaseDamage);
+
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_SetByCaller_AttackType_Light);
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_SetByCaller_AttackType_Heavy);
 }
