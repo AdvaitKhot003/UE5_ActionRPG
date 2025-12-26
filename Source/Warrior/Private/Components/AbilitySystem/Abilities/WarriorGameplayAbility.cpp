@@ -3,6 +3,7 @@
 
 #include "Components/AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Components/Combat/PawnCombatComponent.h"
 
 void UWarriorGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -40,4 +41,25 @@ UPawnCombatComponent* UWarriorGameplayAbility::GetPawnCombatComponentFromActorIn
 UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<UWarriorAbilitySystemComponent>(GetCurrentActorInfo()->AbilitySystemComponent);
+}
+
+FActiveGameplayEffectHandle UWarriorGameplayAbility::NativeApplyGESpecHandleToTargetActor(AActor* TargetActor,
+	const FGameplayEffectSpecHandle& GameplayEffectSpecHandle)
+{
+	UAbilitySystemComponent* TargetAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	UWarriorAbilitySystemComponent* SourceAsc = GetWarriorAbilitySystemComponentFromActorInfo();
+	check(TargetAsc);
+	check(SourceAsc);
+	check(GameplayEffectSpecHandle.IsValid());
+	return SourceAsc->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), TargetAsc);
+}
+
+FActiveGameplayEffectHandle UWarriorGameplayAbility::BP_ApplyGESpecHandleToTargetActor(AActor* TargetActor,
+	const FGameplayEffectSpecHandle& GameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType)
+{
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyGESpecHandleToTargetActor(TargetActor, GameplayEffectSpecHandle);
+	OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied()?
+		EWarriorSuccessType::Successful : EWarriorSuccessType::Failed;
+	
+	return ActiveGameplayEffectHandle;
 }

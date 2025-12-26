@@ -29,8 +29,8 @@ public:
 	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage,
-		FGameplayTag InCurrentAttackTypeTag, int32 InCachedComboCount);
+	FGameplayEffectSpecHandle MakeHeroDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> GameplayEffectClass,
+		float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCachedComboCount);
 
 private:
 	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;

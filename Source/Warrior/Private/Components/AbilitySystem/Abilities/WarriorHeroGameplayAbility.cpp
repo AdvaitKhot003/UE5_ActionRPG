@@ -35,10 +35,10 @@ UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromAct
 }
 
 
-FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
+FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> GameplayEffectClass,
 	float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCachedComboCount)
 {
-	check(EffectClass);
+	check(GameplayEffectClass);
 	
 	UWarriorAbilitySystemComponent* WarriorAsc = GetWarriorAbilitySystemComponentFromActorInfo();
 	check(WarriorAsc);
@@ -48,7 +48,7 @@ FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageEffectSpecH
 	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
 	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
 
-	FGameplayEffectSpecHandle EffectSpecHandle = WarriorAsc->MakeOutgoingSpec(EffectClass, GetAbilityLevel(), ContextHandle);
+	FGameplayEffectSpecHandle EffectSpecHandle = WarriorAsc->MakeOutgoingSpec(GameplayEffectClass, GetAbilityLevel(), ContextHandle);
 
 	if (EffectSpecHandle.IsValid())
 	{
