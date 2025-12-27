@@ -43,38 +43,38 @@ void UGEExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustom
 	float SourceAttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
 		GetWarriorDamageCapture().AttackPowerDef, EvaluateParameters, SourceAttackPower);
-	Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
+	//Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
 
 	float BaseDamage = OwningGESpec.GetSetByCallerMagnitude(
 		WarriorGameplayTags::SharedTag_SetByCaller_BaseDamage, false, 0.f);
-	Debug::Print(TEXT("BaseDamage"), BaseDamage);
+	//Debug::Print(TEXT("BaseDamage"), BaseDamage);
 
 	const float CachedLightAttackComboCount = OwningGESpec.GetSetByCallerMagnitude(
 		WarriorGameplayTags::PlayerTag_SetByCaller_AttackType_Light, false, 0.f);
-	Debug::Print(TEXT("CachedLightAttackComboCount"), CachedLightAttackComboCount);
+	//Debug::Print(TEXT("CachedLightAttackComboCount"), CachedLightAttackComboCount);
 
 	const float CachedHeavyAttackComboCount = OwningGESpec.GetSetByCallerMagnitude(
 		WarriorGameplayTags::PlayerTag_SetByCaller_AttackType_Heavy, false, 0.f);
-	Debug::Print(TEXT("CachedHeavyAttackComboCount"), CachedHeavyAttackComboCount);
+	//Debug::Print(TEXT("CachedHeavyAttackComboCount"), CachedHeavyAttackComboCount);
 	
 	float TargetDefensePower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
 		GetWarriorDamageCapture().DefensePowerDef, EvaluateParameters, TargetDefensePower);
-	Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
+	//Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
 
 	if (CachedHeavyAttackComboCount > 0.f)
 	{
 		const float HeavyAttackComboMultiplier = 1.5f + (CachedHeavyAttackComboCount - 1.f) * 0.5f;
 
 		BaseDamage *= HeavyAttackComboMultiplier;
-		Debug::Print(TEXT("BaseDamageHeavyAttack"), BaseDamage);
+		//Debug::Print(TEXT("BaseDamageHeavyAttack"), BaseDamage);
 	}
 	else if (CachedLightAttackComboCount > 0.f)
 	{
 		const float LightAttackComboMultiplier = 1.0f + (CachedLightAttackComboCount - 1.f) * 0.25f;
 
 		BaseDamage *= LightAttackComboMultiplier;
-		Debug::Print(TEXT("BaseDamageLightAttack"), BaseDamage);
+		//Debug::Print(TEXT("BaseDamageLightAttack"), BaseDamage);
 	}
 
 	const float FinalDamageDone = BaseDamage * (SourceAttackPower / (SourceAttackPower + TargetDefensePower));
