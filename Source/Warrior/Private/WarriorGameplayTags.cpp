@@ -18,6 +18,7 @@ namespace WarriorGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Ability_Unequip_Axe, "PlayerTag.Ability.Unequip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Ability_LightAttack_Axe, "PlayerTag.Ability.LightAttack.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Ability_HeavyAttack_Axe, "PlayerTag.Ability.HeavyAttack.Axe");
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Ability_HitPause, "PlayerTag.Ability.HitPause");
 
 	/** Enemy Ability Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Ability_Melee, "EnemyTag.Ability.Melee");
@@ -29,6 +30,7 @@ namespace WarriorGameplayTags
 	/** Event Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Equip_Axe, "PlayerTag.Event.Equip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Unequip_Axe, "PlayerTag.Event.Unequip.Axe");
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_HitPause, "PlayerTag.Event.HitPause");
 
 	/** Shared Event Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Event_MeleeHit, "SharedTag.Event.MeleeHit");

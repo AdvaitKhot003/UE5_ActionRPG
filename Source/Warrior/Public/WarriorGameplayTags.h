@@ -19,6 +19,7 @@ namespace WarriorGameplayTags
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Ability_Unequip_Axe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Ability_LightAttack_Axe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Ability_HeavyAttack_Axe);
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Ability_HitPause);
 
 	/** Enemy Ability Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(EnemyTag_Ability_Melee);
@@ -30,6 +31,7 @@ namespace WarriorGameplayTags
 	/** Event Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Equip_Axe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Unequip_Axe);
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_HitPause);
 
 	/** Shared Event Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_Event_MeleeHit);

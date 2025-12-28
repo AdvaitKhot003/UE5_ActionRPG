@@ -48,9 +48,17 @@ void UHeroCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
 	
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
 		GetOwningPawn(), WarriorGameplayTags::SharedTag_Event_MeleeHit, EventData);
+
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		GetOwningPawn(), WarriorGameplayTags::PlayerTag_Event_HitPause, EventData);
 }
 
 void UHeroCombatComponent::OnWeaponEndHitTargetActor(AActor* HitEndActor)
 {
+	FGameplayEventData EventData;
+	EventData.Instigator = GetOwningPawn();
+	EventData.Target = HitEndActor;
 	
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		GetOwningPawn(), WarriorGameplayTags::PlayerTag_Event_HitPause, EventData);
 }
