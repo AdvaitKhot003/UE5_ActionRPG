@@ -5,6 +5,7 @@
 #include "Items/Weapons/WarriorHeroWeapon.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "WarriorGameplayTags.h"
+#include "Kismet/GameplayStatics.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -61,4 +62,40 @@ void UHeroCombatComponent::OnWeaponEndHitTargetActor(AActor* HitEndActor)
 	
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
 		GetOwningPawn(), WarriorGameplayTags::PlayerTag_Event_HitPause, EventData);
+}
+
+void UHeroCombatComponent::StartHitPause(float RealTimeDuration, float TimeDilation)
+{
+	if (!GetWorld())
+	{
+		return;
+	}
+
+	RealTimeDuration = FMath::Clamp(RealTimeDuration, 0.005f, 0.1f);
+	TimeDilation = FMath::Clamp(TimeDilation, 0.02f, 1.f);
+
+	// Prevent stacking hit pauses
+	GetWorld()->GetTimerManager().ClearTimer(HitPauseTimerHandle);
+
+	// Apply time dilation immediately
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), TimeDilation);
+
+	// Start real time timer
+	GetWorld()->GetTimerManager().SetTimer(
+		HitPauseTimerHandle,
+		this,
+		&UHeroCombatComponent::EndHitPause,
+		RealTimeDuration,
+		false
+	);
+}
+
+void UHeroCombatComponent::EndHitPause()
+{
+	if (!GetWorld())
+	{
+		return;
+	}
+
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
 }

@@ -37,4 +37,12 @@ public:
 
 	virtual void OnWeaponBeginHitTargetActor(AActor* HitBeginActor) override;
 	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+	void StartHitPause(float RealTimeDuration, float TimeDilation);
+
+private:
+	FTimerHandle HitPauseTimerHandle;
+
+	void EndHitPause();
 };
