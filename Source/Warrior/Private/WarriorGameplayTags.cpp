@@ -27,7 +27,7 @@ namespace WarriorGameplayTags
 	/** Shared Ability Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Ability_HitReact, "SharedTag.Ability.HitReact");
 
-	/** Event Tags **/
+	/** Player Event Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Equip_Axe, "PlayerTag.Event.Equip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Unequip_Axe, "PlayerTag.Event.Unequip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_HitPause, "PlayerTag.Event.HitPause");
@@ -36,23 +36,23 @@ namespace WarriorGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Event_MeleeHit, "SharedTag.Event.MeleeHit");
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Event_HitReact, "SharedTag.Event.HitReact");
 
-	/** Weapon Tags **/
+	/** Player Weapon Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Weapon_Axe, "PlayerTag.Weapon.Axe");
 	
 	/** Enemy Weapon Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
 
-	/** State Tags **/
+	/** Player State Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_Attacking, "PlayerTag.State.Attacking");
 
-	/** Status Tags **/
-	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
-
-	/** SetByCaller Tags **/
+	/** Player SetByCaller Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_SetByCaller_AttackType_Light, "PlayerTag.SetByCaller.AttackType.Light");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_SetByCaller_AttackType_Heavy, "PlayerTag.SetByCaller.AttackType.Heavy");
 
 	/** Shared SetByCaller Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_SetByCaller_BaseDamage, "SharedTag.SetByCaller.BaseDamage");
+
+	/** Player Status Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
 }

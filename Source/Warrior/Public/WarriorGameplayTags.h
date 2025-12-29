@@ -28,7 +28,7 @@ namespace WarriorGameplayTags
 	/** Shared Ability Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_Ability_HitReact);
 
-	/** Event Tags **/
+	/** Player Event Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Equip_Axe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_Unequip_Axe);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Event_HitPause);
@@ -37,23 +37,23 @@ namespace WarriorGameplayTags
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_Event_MeleeHit);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_Event_HitReact);
 
-	/** Weapon Tags **/
+	/** Player Weapon Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Weapon_Axe);
 	
 	/** Enemy Weapon Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(EnemyTag_Weapon);
 
-	/** State Tags **/
+	/** Player State Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_State_WeaponTransition);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_State_Attacking);
 
-	/** Status Tags **/
-	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Status_JumpToFinisher);
-
-	/** SetByCaller Tags **/
+	/** Player SetByCaller Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_SetByCaller_AttackType_Light);
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_SetByCaller_AttackType_Heavy);
 
 	/** Shared SetByCaller Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_SetByCaller_BaseDamage);
+
+	/** Player Status Tags **/
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Status_JumpToFinisher);
 }

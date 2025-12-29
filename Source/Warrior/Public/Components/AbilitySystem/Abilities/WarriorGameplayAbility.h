@@ -46,4 +46,11 @@ protected:
 		meta = (DisplayName = "Apply Gameplay Effect Spec Handle To Target Actor", ExpandEnumAsExecs = "OutSuccessType"))
 	FActiveGameplayEffectHandle BP_ApplyGESpecHandleToTargetActor(AActor* TargetActor,
 		const FGameplayEffectSpecHandle& GameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType);
+
+	// UE 5.5+ GAS regression fix.
+	// Restores correct Block Abilities with Tag behavior by overriding UGameplayAbility::DoesAbilitySatisfyTagRequirements().
+	// Do not call Super.
+	virtual bool DoesAbilitySatisfyTagRequirements(const UAbilitySystemComponent& AbilitySystemComponent,
+		const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr,
+		OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 };
