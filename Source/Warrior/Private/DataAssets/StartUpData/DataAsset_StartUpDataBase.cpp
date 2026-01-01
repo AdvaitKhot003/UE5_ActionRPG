@@ -7,7 +7,8 @@
 
 void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
 {
-	check(InAscToGive);
+	checkf(InAscToGive,
+		TEXT("Warning: UWarriorAbilitySystemComponent* InAscToGive is nullptr in GiveToAbilitySystemComponent in DataAsset_StartUpDataBase."));
 
 	GrantAbilities(ActivateOnGivenAbilities, InAscToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InAscToGive, ApplyLevel);

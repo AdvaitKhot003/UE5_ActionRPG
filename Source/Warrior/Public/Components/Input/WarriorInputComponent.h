@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "DataAssets/Input//DataAsset_InputConfig.h"
+#include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "WarriorInputComponent.generated.h"
 
 /**
@@ -29,7 +29,8 @@ template <class UserObject, typename CallbackFunction>
 void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig,
 	const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunction Function)
 {
-	checkf(InInputConfig, TEXT("Warning: UDataAsset_InputConfig* InInputConfig is nullptr."));
+	checkf(InInputConfig,
+		TEXT("Warning: UDataAsset_InputConfig* InInputConfig is nullptr in BindNativeInputAction in WarriorInputComponent."));
 
 	if (UInputAction* FoundInputAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{
@@ -41,7 +42,8 @@ template <class UserObject, typename CallbackFunction>
 void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
 	UserObject* ContextObject, CallbackFunction InputPressedFunction, CallbackFunction InputReleasedFunction)
 {
-	checkf(InInputConfig, TEXT("Warning: UDataAsset_InputConfig* InInputConfig is nullptr."));
+	checkf(InInputConfig,
+		TEXT("Warning: UDataAsset_InputConfig* InInputConfig is nullptr in BindAbilityInputAction in WarriorInputComponent."));
 
 	for (const FWarriorInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
 	{

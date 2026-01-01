@@ -14,8 +14,7 @@ USTRUCT(BlueprintType)
 struct FWarriorInputActionConfig
 {
 	GENERATED_BODY()
-
-public:
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
 	FGameplayTag InputTag;
 

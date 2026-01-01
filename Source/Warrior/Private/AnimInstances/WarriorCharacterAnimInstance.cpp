@@ -15,14 +15,20 @@ void UWarriorCharacterAnimInstance::NativeInitializeAnimation()
 	}
 }
 
-void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
+void UWarriorCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	if (!OwningBaseCharacter || !OwningBaseMovementComponent)
 	{
 		return;
 	}
 
-	GroundSpeed = OwningBaseCharacter->GetVelocity().Size2D();
+	CachedGroundSpeed = OwningBaseCharacter->GetVelocity().Size2D();
 
-	bHasAcceleration = OwningBaseMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.f;
+	CachedHasAcceleration = OwningBaseMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.f;
+}
+
+void UWarriorCharacterAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
+{
+	GroundSpeed = CachedGroundSpeed;
+	bHasAcceleration = CachedHasAcceleration;
 }

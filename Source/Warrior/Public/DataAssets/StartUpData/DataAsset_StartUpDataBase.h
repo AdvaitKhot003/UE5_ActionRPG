@@ -31,9 +31,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="StartUpData")
 	TArray<TSubclassOf<UGameplayEffect>> StartUpGameplayEffects;
 
-	void GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InAbilitiesToGive, UWarriorAbilitySystemComponent* InAscToGive,
-		int32 ApplyLevel = 1);
+	void GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InAbilitiesToGive,
+		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 
-	void GrantGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToGive, UWarriorAbilitySystemComponent* InAscToGive,
-		int32 ApplyLevel = 1);
+	void GrantGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToGive,
+		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 };

@@ -19,6 +19,7 @@ class WARRIOR_API UWarriorCharacterAnimInstance : public UWarriorBaseAnimInstanc
 
 public:
 	virtual void NativeInitializeAnimation() override;
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
 
 protected:
@@ -27,6 +28,12 @@ protected:
 
 	UPROPERTY()
 	UCharacterMovementComponent* OwningBaseMovementComponent;
+
+	UPROPERTY(Transient)
+	float CachedGroundSpeed = 0.f;
+
+	UPROPERTY(Transient)
+	bool CachedHasAcceleration = false;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
 	float GroundSpeed;

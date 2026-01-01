@@ -36,6 +36,6 @@ void AWarriorBaseCharacter::PossessedBy(AController* NewController)
 		WarriorAbilitySystemComponent->InitAbilityActorInfo(this, this);
 
 		ensureMsgf(!CharacterStartUpDataAsset.IsNull(),
-			TEXT("Warning: TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpDataAsset is nullptr."));
+			TEXT("Warning: TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpDataAsset is nullptr in PossessedBy in WarriorBaseCharacter."));
 	}
 }

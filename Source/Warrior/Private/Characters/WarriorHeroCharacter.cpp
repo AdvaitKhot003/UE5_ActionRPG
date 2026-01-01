@@ -11,7 +11,7 @@
 #include "Components/Input/WarriorInputComponent.h"
 #include "WarriorGameplayTags.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 #include "Components/Combat/HeroCombatComponent.h"
 
 #include "WarriorDebugHelper.h"
@@ -67,6 +67,12 @@ void AWarriorHeroCharacter::InitHeroStartUpData()
 		return;
 	}
 
+	/** const FString Message = FString::Printf(
+		TEXT("OwnerActor: %s, AvatarActor: %s"),
+		*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+		*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+	Debug::Print(Message, FColor::Green); **/
+
 	if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpDataAsset.LoadSynchronous())
 	{
 		LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
@@ -75,11 +81,15 @@ void AWarriorHeroCharacter::InitHeroStartUpData()
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	checkf(InputConfigDataAsset, TEXT("Warning: UDataAsset_InputConfig* InputConfigDataAsset is nullptr."));
+	checkf(InputConfigDataAsset,
+		TEXT("Warning: UDataAsset_InputConfig* InputConfigDataAsset is nullptr in SetupPlayerInputComponent in WarriorHeroCharacter."));
 	
 	const ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
-	checkf(Subsystem, TEXT("Warning: UEnhancedInputLocalPlayerSubsystem* Subsystem is nullptr."));
+	
+	checkf(Subsystem,
+		TEXT("Warning: UEnhancedInputLocalPlayerSubsystem* Subsystem is nullptr in SetupPlayerInputComponent in WarriorHeroCharacter."));
+
 	Subsystem->AddMappingContext(InputConfigDataAsset->InputMappingContext, 0);
 
 	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
@@ -97,7 +107,7 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
-	const FRotator MovementRotation(0.f, GetControlRotation().Yaw, 0.f);
+	const FRotator MovementRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
 
 	if (MovementVector.Y != 0.f)
 	{
@@ -140,4 +150,6 @@ void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Debug::Print(TEXT("Working"));
 }
