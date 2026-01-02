@@ -33,6 +33,9 @@ public:
 		float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCachedComboCount);
 
 private:
+	UPROPERTY(Transient)
 	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
+
+	UPROPERTY(Transient)
 	TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
 };

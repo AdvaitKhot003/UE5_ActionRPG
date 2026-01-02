@@ -27,7 +27,7 @@ AWarriorHeroController* UWarriorHeroGameplayAbility::GetHeroControllerFromActorI
 
 UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromActorInfo()
 {
-	if (AWarriorHeroCharacter* HeroCharacter = GetHeroCharacterFromActorInfo())
+	if (const AWarriorHeroCharacter* HeroCharacter = GetHeroCharacterFromActorInfo())
 	{
 		return HeroCharacter->GetHeroCombatComponent();
 	}

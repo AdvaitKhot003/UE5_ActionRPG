@@ -9,7 +9,18 @@ void UDataAsset_HeroStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySys
 {
 	Super::GiveToAbilitySystemComponent(InAscToGive, ApplyLevel);
 
-	for (const FWarriorHeroAbilitySet& AbilitySet : HeroStartUpAbilitySets)
+	GrantHeroStartUpAbilities(HeroStartUpAbilitySets, InAscToGive, ApplyLevel);
+}
+
+void UDataAsset_HeroStartUpData::GrantHeroStartUpAbilities(const TArray<FWarriorHeroAbilitySet>& InHeroStartUpAbilitySets,
+	UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
+{
+	if (InHeroStartUpAbilitySets.IsEmpty())
+	{
+		return;
+	}
+	
+	for (const FWarriorHeroAbilitySet& AbilitySet : InHeroStartUpAbilitySets)
 	{
 		if (!AbilitySet.IsValid()) continue;
 

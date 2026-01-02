@@ -27,6 +27,7 @@ void UPawnCombatComponent::RegisterSpawnedWeaponByTag(FGameplayTag InWeaponTagTo
 
 	const FString WeaponString = FString::Printf(TEXT("A weapon named %s is registered with a tag named %s"),
 		*InWeaponToRegister->GetName(), *InWeaponTagToRegister.ToString());
+	
 	Debug::Print(WeaponString, FColor::Green);
 }
 
@@ -70,7 +71,7 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnableCollision, ET
 		{
 			WeaponCollisionToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
 
-			OverlapedActors.Empty();
+			OverlappedActors.Empty();
 		}
 	}
 }

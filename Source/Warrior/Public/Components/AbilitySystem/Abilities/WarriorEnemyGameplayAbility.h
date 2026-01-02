@@ -25,5 +25,6 @@ public:
 	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
 
 private:
+	UPROPERTY(Transient)
 	TWeakObjectPtr<AWarriorEnemyCharacter> CachedWarriorEnemyCharacter;
 };

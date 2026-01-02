@@ -14,12 +14,14 @@ USTRUCT(BlueprintType)
 struct FWarriorInputActionConfig
 {
 	GENERATED_BODY()
+
+	FWarriorInputActionConfig() : InputAction(nullptr){}
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
 	FGameplayTag InputTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UInputAction* InputAction = nullptr;
+	UInputAction* InputAction;
 
 	bool IsValid() const
 	{

@@ -15,7 +15,16 @@ void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& I
 	{
 		if (!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue;
 
-		TryActivateAbility(AbilitySpec.Handle);
+		// 🔹 Get Ability CDO
+		const UWarriorGameplayAbility* WarriorAbilityCDO = Cast<UWarriorGameplayAbility>(AbilitySpec.Ability);
+
+		if (!WarriorAbilityCDO) continue;
+
+		// 🔹 Check activation policy
+		if (WarriorAbilityCDO->GetAbilityActivationPolicy() == EWarriorAbilityActivationPolicy::OnTriggered)
+		{
+			TryActivateAbility(AbilitySpec.Handle);
+		}
 	}
 }
 

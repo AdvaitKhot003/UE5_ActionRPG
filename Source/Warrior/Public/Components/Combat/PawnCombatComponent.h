@@ -46,7 +46,8 @@ public:
 	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor);
 
 protected:
-	TArray<AActor*>OverlapedActors;
+	UPROPERTY(Transient)
+	TArray<AActor*>OverlappedActors;
 	
 private:
 	UPROPERTY()

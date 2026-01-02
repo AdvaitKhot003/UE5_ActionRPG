@@ -21,4 +21,7 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, Category="StartUpData", meta = (TitleProperty = "InputTag", AllowPrivateAccess = "true"))
 	TArray<FWarriorHeroAbilitySet> HeroStartUpAbilitySets;
+
+	void GrantHeroStartUpAbilities(const TArray<FWarriorHeroAbilitySet>& InHeroStartUpAbilitySets,
+		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 };

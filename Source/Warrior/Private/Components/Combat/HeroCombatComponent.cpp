@@ -36,12 +36,12 @@ void UHeroCombatComponent::ResetLightAttackComboCount()
 
 void UHeroCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
 {
-	if (OverlapedActors.Contains(HitBeginActor))
+	if (OverlappedActors.Contains(HitBeginActor))
 	{
 		return;
 	}
 
-	OverlapedActors.AddUnique(HitBeginActor);
+	OverlappedActors.AddUnique(HitBeginActor);
 
 	FGameplayEventData EventData;
 	EventData.Instigator = GetOwningPawn();
