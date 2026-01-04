@@ -27,6 +27,10 @@ namespace WarriorGameplayTags
 	/** Shared Ability Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Ability_HitReact, "SharedTag.Ability.HitReact");
 
+	/** Player State Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
+	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_Attacking, "PlayerTag.State.Attacking");
+
 	/** Player Event Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Equip_Axe, "PlayerTag.Event.Equip.Axe");
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Event_Unequip_Axe, "PlayerTag.Event.Unequip.Axe");
@@ -41,10 +45,6 @@ namespace WarriorGameplayTags
 	
 	/** Enemy Weapon Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Weapon, "EnemyTag.Weapon");
-
-	/** Player State Tags **/
-	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
-	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_Attacking, "PlayerTag.State.Attacking");
 
 	/** Player SetByCaller Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_SetByCaller_AttackType_Light, "PlayerTag.SetByCaller.AttackType.Light");

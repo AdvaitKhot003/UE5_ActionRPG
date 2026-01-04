@@ -28,9 +28,19 @@ void UHeroCombatComponent::ResetLightAttackComboCount()
 {
 	CurrentLightAttackComboCount = 1;
 
-	if (GetWorld()->GetTimerManager().IsTimerActive(LightComboCountResetTimerHandle))
+	if (GetWorld()->GetTimerManager().IsTimerActive(LightAttackComboResetTimerHandle))
 	{
-		GetWorld()->GetTimerManager().ClearTimer(LightComboCountResetTimerHandle);
+		GetWorld()->GetTimerManager().ClearTimer(LightAttackComboResetTimerHandle);
+	}
+}
+
+void UHeroCombatComponent::ResetHeavyAttackComboCount()
+{
+	CurrentHeavyAttackComboCount = 1;
+
+	if (GetWorld()->GetTimerManager().IsTimerActive(HeavyAttackComboResetTimerHandle))
+	{
+		GetWorld()->GetTimerManager().ClearTimer(HeavyAttackComboResetTimerHandle);
 	}
 }
 

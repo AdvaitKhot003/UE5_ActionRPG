@@ -30,10 +30,19 @@ public:
 	int32 CurrentLightAttackComboCount = 1;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
-	FTimerHandle LightComboCountResetTimerHandle;
+	FTimerHandle LightAttackComboResetTimerHandle;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
+	int32 CurrentHeavyAttackComboCount = 1;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category="Warrior|Ability")
+	FTimerHandle HeavyAttackComboResetTimerHandle;
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
 	void ResetLightAttackComboCount();
+
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+	void ResetHeavyAttackComboCount();
 
 	virtual void OnWeaponBeginHitTargetActor(AActor* HitBeginActor) override;
 	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor) override;

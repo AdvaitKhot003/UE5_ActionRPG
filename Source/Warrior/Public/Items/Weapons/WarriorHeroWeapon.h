@@ -27,5 +27,6 @@ public:
 	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
 	
 private:
+	UPROPERTY(Transient)
 	TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
 };
