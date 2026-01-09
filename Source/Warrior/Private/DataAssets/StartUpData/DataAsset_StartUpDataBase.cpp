@@ -12,7 +12,7 @@ void UDataAsset_StartUpDataBase::GiveToAbilitySystemComponent(UWarriorAbilitySys
 
 	GrantAbilities(ActivateOnGivenAbilities, InAscToGive, ApplyLevel);
 	GrantAbilities(ReactiveAbilities, InAscToGive, ApplyLevel);
-	GrantGameplayEffects(StartUpGameplayEffects, InAscToGive, ApplyLevel);
+	ApplyStartUpGameplayEffects(StartUpGameplayEffects, InAscToGive, ApplyLevel);
 }
 
 void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InAbilitiesToGive,
@@ -35,23 +35,23 @@ void UDataAsset_StartUpDataBase::GrantAbilities(const TArray<TSubclassOf<UWarrio
 	}
 }
 
-void UDataAsset_StartUpDataBase::GrantGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToGive,
+void UDataAsset_StartUpDataBase::ApplyStartUpGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToApply,
 	UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
 {
-	if (InGameplayEffectsToGive.IsEmpty())
+	if (InGameplayEffectsToApply.IsEmpty())
 	{
 		return;
 	}
 
-	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : InGameplayEffectsToGive)
+	for (const TSubclassOf<UGameplayEffect>& GameplayEffect : InGameplayEffectsToApply)
 	{
 		if (!GameplayEffect) continue;
 
 		const UGameplayEffect* GameplayEffectCDO = GameplayEffect->GetDefaultObject<UGameplayEffect>();
 
-		FGameplayEffectContextHandle Context = InAscToGive->MakeEffectContext();
-		Context.AddSourceObject(InAscToGive->GetAvatarActor());
+		FGameplayEffectContextHandle ContextHandle = InAscToGive->MakeEffectContext();
+		ContextHandle.AddSourceObject(InAscToGive->GetAvatarActor());
 
-		InAscToGive->ApplyGameplayEffectToSelf(GameplayEffectCDO, ApplyLevel, Context);
+		InAscToGive->ApplyGameplayEffectToSelf(GameplayEffectCDO, ApplyLevel, ContextHandle);
 	}
 }

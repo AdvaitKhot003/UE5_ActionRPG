@@ -44,12 +44,12 @@ protected:
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
 
-	FActiveGameplayEffectHandle NativeApplyGESpecHandleToTargetActor(AActor* TargetActor, const FGameplayEffectSpecHandle& GameplayEffectSpecHandle);
+	FActiveGameplayEffectHandle NativeApplyGESpecHandleToTargetActor(AActor* TargetActor, const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle);
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability",
 		meta = (DisplayName = "Apply Gameplay Effect Spec Handle To Target Actor", ExpandEnumAsExecs = "OutSuccessType"))
 	FActiveGameplayEffectHandle BP_ApplyGESpecHandleToTargetActor(AActor* TargetActor,
-		const FGameplayEffectSpecHandle& GameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType);
+		const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType);
 
 	// UE 5.5+ GAS regression fix.
 	// Restores correct Block Abilities with Tag behavior by overriding UGameplayAbility::DoesAbilitySatisfyTagRequirements().

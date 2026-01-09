@@ -6,6 +6,8 @@
 #include "Controllers/WarriorHeroController.h"
 #include "Components/AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "WarriorGameplayTags.h"
+#include "Components/Combat/HeroCombatComponent.h"
+#include "Items/Weapons/WarriorWeaponBase.h"
 
 AWarriorHeroCharacter* UWarriorHeroGameplayAbility::GetHeroCharacterFromActorInfo()
 {
@@ -34,31 +36,53 @@ UHeroCombatComponent* UWarriorHeroGameplayAbility::GetHeroCombatComponentFromAct
 	return nullptr;
 }
 
-
-FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> GameplayEffectClass,
-	float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InCachedComboCount)
+FGameplayEffectSpecHandle UWarriorHeroGameplayAbility::MakeHeroDamageGameplayEffectSpecHandle(
+	TSubclassOf<UGameplayEffect> GameplayEffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag,
+	int32 InCachedComboCount)
 {
 	check(GameplayEffectClass);
-	
+
 	UWarriorAbilitySystemComponent* WarriorAsc = GetWarriorAbilitySystemComponentFromActorInfo();
 	check(WarriorAsc);
 
+	AActor* AvatarActor = GetAvatarActorFromActorInfo();
+	AActor* WeaponActor = nullptr;
+	UObject* WeaponSourceObject = nullptr;
+
+	if (UHeroCombatComponent* HeroCombatComponent = GetHeroCombatComponentFromActorInfo())
+	{
+		// Keep the original object for SourceObject
+		WeaponSourceObject = HeroCombatComponent->GetCharacterCurrentEquippedWeapon();
+
+		// Only use as EffectCauser if it's actually an Actor
+		WeaponActor = Cast<AActor>(WeaponSourceObject);
+	}
+
 	FGameplayEffectContextHandle ContextHandle = WarriorAsc->MakeEffectContext();
 	ContextHandle.SetAbility(this);
-	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
-	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
 
-	FGameplayEffectSpecHandle EffectSpecHandle = WarriorAsc->MakeOutgoingSpec(GameplayEffectClass, GetAbilityLevel(), ContextHandle);
-
-	if (EffectSpecHandle.IsValid())
+	// SourceObject = extra context (weapon, data asset, etc.)
+	if (WeaponSourceObject)
 	{
-		EffectSpecHandle.Data->SetSetByCallerMagnitude(WarriorGameplayTags::SharedTag_SetByCaller_BaseDamage, InWeaponBaseDamage);
+		ContextHandle.AddSourceObject(WeaponSourceObject);
+	}
+
+	// Instigator = character, EffectCauser = weapon if valid, else character
+	ContextHandle.AddInstigator(AvatarActor, WeaponActor ? WeaponActor : AvatarActor);
+
+	FGameplayEffectSpecHandle GameplayEffectSpecHandle =
+		WarriorAsc->MakeOutgoingSpec(GameplayEffectClass, GetAbilityLevel(), ContextHandle);
+
+	if (GameplayEffectSpecHandle.IsValid())
+	{
+		GameplayEffectSpecHandle.Data->SetSetByCallerMagnitude(
+			WarriorGameplayTags::SharedTag_SetByCaller_BaseDamage, InWeaponBaseDamage);
 
 		if (InCurrentAttackTypeTag.IsValid())
 		{
-			EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InCachedComboCount);
+			GameplayEffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InCachedComboCount);
 		}
 	}
 
-	return EffectSpecHandle;
+	return GameplayEffectSpecHandle;
 }

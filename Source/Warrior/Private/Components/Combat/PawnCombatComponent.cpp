@@ -25,10 +25,10 @@ void UPawnCombatComponent::RegisterSpawnedWeaponByTag(FGameplayTag InWeaponTagTo
 		CurrentEquippedWeaponTag = InWeaponTagToRegister;
 	}
 
-	const FString WeaponString = FString::Printf(TEXT("A weapon named %s is registered with a tag named %s"),
+	/** const FString WeaponString = FString::Printf(TEXT("A weapon named %s is registered with a tag named %s"),
 		*InWeaponToRegister->GetName(), *InWeaponTagToRegister.ToString());
 	
-	Debug::Print(WeaponString, FColor::Green);
+	Debug::Print(WeaponString, FColor::Green); **/
 }
 
 AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const
@@ -56,20 +56,22 @@ void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnableCollision, ET
 {
 	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
 	{
-		AWarriorWeaponBase* WeaponCollisionToToggle = GetCharacterCurrentEquippedWeapon();
+		AWarriorWeaponBase* WeaponToToggleCollision = GetCharacterCurrentEquippedWeapon();
 
-		if (!WeaponCollisionToToggle)
+		if (!WeaponToToggleCollision)
 		{
 			return;
 		}
 
 		if (bShouldEnableCollision)
 		{
-			WeaponCollisionToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::QueryOnly);
+			WeaponToToggleCollision->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::QueryOnly);
+			//Debug::Print(WeaponToToggleCollision->GetName() + TEXT(" is now colliding with other actors"), FColor::Green);
 		}
 		else
 		{
-			WeaponCollisionToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
+			WeaponToToggleCollision->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
+			//Debug::Print(WeaponToToggleCollision->GetName() + TEXT(" is no longer colliding with other actors"), FColor::Red);
 
 			OverlappedActors.Empty();
 		}

@@ -6,6 +6,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "WarriorGameplayTags.h"
 #include "Kismet/GameplayStatics.h"
+#include "WarriorFunctionLibrary.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -44,8 +45,22 @@ void UHeroCombatComponent::ResetHeavyAttackComboCount()
 	}
 }
 
+void UHeroCombatComponent::OnWeaponEquipped(AActor* InActor, FGameplayTag InGameplayTagToRemove)
+{
+	if (!InActor)
+	{
+		return;
+	}
+	
+	ResetLightAttackComboCount();
+	ResetHeavyAttackComboCount();
+	UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfFound(InActor, InGameplayTagToRemove);
+}
+
 void UHeroCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
 {
+	//Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT(" Begin Overlap With ") + HitBeginActor->GetActorNameOrLabel(), FColor::Green);
+	
 	if (OverlappedActors.Contains(HitBeginActor))
 	{
 		return;
@@ -66,6 +81,8 @@ void UHeroCombatComponent::OnWeaponBeginHitTargetActor(AActor* HitBeginActor)
 
 void UHeroCombatComponent::OnWeaponEndHitTargetActor(AActor* HitEndActor)
 {
+	//Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT(" End Overlap With ") + HitEndActor->GetActorNameOrLabel(), FColor::Red);
+	
 	FGameplayEventData EventData;
 	EventData.Instigator = GetOwningPawn();
 	EventData.Target = HitEndActor;

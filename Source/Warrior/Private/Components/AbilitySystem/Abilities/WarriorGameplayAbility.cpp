@@ -45,20 +45,22 @@ UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystem
 }
 
 FActiveGameplayEffectHandle UWarriorGameplayAbility::NativeApplyGESpecHandleToTargetActor(AActor* TargetActor,
-	const FGameplayEffectSpecHandle& GameplayEffectSpecHandle)
+	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle)
 {
 	UAbilitySystemComponent* TargetAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	UWarriorAbilitySystemComponent* SourceAsc = GetWarriorAbilitySystemComponentFromActorInfo();
 	check(TargetAsc);
 	check(SourceAsc);
-	check(GameplayEffectSpecHandle.IsValid());
-	return SourceAsc->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), TargetAsc);
+	check(InGameplayEffectSpecHandle.IsValid());
+	return SourceAsc->ApplyGameplayEffectSpecToTarget(*InGameplayEffectSpecHandle.Data.Get(), TargetAsc);
 }
 
 FActiveGameplayEffectHandle UWarriorGameplayAbility::BP_ApplyGESpecHandleToTargetActor(AActor* TargetActor,
-	const FGameplayEffectSpecHandle& GameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType)
+	const FGameplayEffectSpecHandle& InGameplayEffectSpecHandle, EWarriorSuccessType& OutSuccessType)
 {
-	FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyGESpecHandleToTargetActor(TargetActor, GameplayEffectSpecHandle);
+	FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+		NativeApplyGESpecHandleToTargetActor(TargetActor, InGameplayEffectSpecHandle);
+	
 	OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied()?
 		EWarriorSuccessType::Successful : EWarriorSuccessType::Failed;
 	

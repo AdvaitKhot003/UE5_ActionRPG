@@ -10,12 +10,18 @@ void UDataAsset_EnemyStartUpData::GiveToAbilitySystemComponent(UWarriorAbilitySy
 {
 	Super::GiveToAbilitySystemComponent(InAscToGive, ApplyLevel);
 
-	if (EnemyCombatAbilities.IsEmpty())
+	GrantEnemyCombatAbilities(EnemyCombatAbilities, InAscToGive, ApplyLevel);
+}
+
+void UDataAsset_EnemyStartUpData::GrantEnemyCombatAbilities(const TArray<TSubclassOf<UWarriorEnemyGameplayAbility>>& InEnemyCombatAbilities,
+	UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel)
+{
+	if (InEnemyCombatAbilities.IsEmpty())
 	{
 		return;
 	}
 
-	for (const TSubclassOf<UWarriorEnemyGameplayAbility>& Ability : EnemyCombatAbilities)
+	for (const TSubclassOf<UWarriorEnemyGameplayAbility>& Ability : InEnemyCombatAbilities)
 	{
 		if (!Ability) continue;
 

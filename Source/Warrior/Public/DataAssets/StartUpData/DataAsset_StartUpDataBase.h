@@ -34,6 +34,6 @@ protected:
 	void GrantAbilities(const TArray<TSubclassOf<UWarriorGameplayAbility>>& InAbilitiesToGive,
 		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 
-	void GrantGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToGive,
+	void ApplyStartUpGameplayEffects(const TArray<TSubclassOf<UGameplayEffect>>& InGameplayEffectsToApply,
 		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 };

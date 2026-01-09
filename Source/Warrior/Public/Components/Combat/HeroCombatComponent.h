@@ -44,6 +44,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
 	void ResetHeavyAttackComboCount();
 
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Ability")
+	void OnWeaponEquipped(AActor* InActor, FGameplayTag InGameplayTagToRemove);
+
 	virtual void OnWeaponBeginHitTargetActor(AActor* HitBeginActor) override;
 	virtual void OnWeaponEndHitTargetActor(AActor* HitEndActor) override;
 

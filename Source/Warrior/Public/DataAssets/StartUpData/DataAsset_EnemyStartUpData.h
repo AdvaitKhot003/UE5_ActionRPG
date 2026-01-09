@@ -22,4 +22,7 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, Category="StartUpData", meta = (AllowPrivateAccess = "true"))
 	TArray<TSubclassOf<UWarriorEnemyGameplayAbility>> EnemyCombatAbilities;
+
+	void GrantEnemyCombatAbilities(const TArray<TSubclassOf<UWarriorEnemyGameplayAbility>>& InEnemyCombatAbilities,
+		UWarriorAbilitySystemComponent* InAscToGive, int32 ApplyLevel = 1);
 };
