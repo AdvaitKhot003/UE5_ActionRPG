@@ -54,6 +54,7 @@ public:
 	void StartHitPause(float RealTimeDuration, float TimeDilation);
 
 private:
+	UPROPERTY(Transient)
 	FTimerHandle HitPauseTimerHandle;
 
 	void EndHitPause();
