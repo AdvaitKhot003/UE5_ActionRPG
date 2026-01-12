@@ -12,6 +12,8 @@ AWarriorBaseCharacter::AWarriorBaseCharacter()
 
 	GetMesh()->bReceivesDecals = false;
 	GetMesh()->BoundsScale = 3.f;
+	GetMesh()->SetCastShadow(true);
+	GetMesh()->ShadowCacheInvalidationBehavior = EShadowCacheInvalidationBehavior::Always;
 
 	WarriorAbilitySystemComponent = CreateDefaultSubobject<UWarriorAbilitySystemComponent>("WarriorAbilitySystemComponent");
 	WarriorAttributeSet = CreateDefaultSubobject<UWarriorAttributeSet>("WarriorAttributeSet");

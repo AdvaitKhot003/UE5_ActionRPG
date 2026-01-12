@@ -11,6 +11,9 @@ AWarriorWeaponBase::AWarriorWeaponBase()
 	PrimaryActorTick.bCanEverTick = false;
 
 	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>("WeaponMesh");
+	WeaponMesh->BoundsScale = 3.f;
+	WeaponMesh->SetCastShadow(true);
+	WeaponMesh->ShadowCacheInvalidationBehavior = EShadowCacheInvalidationBehavior::Always;
 	SetRootComponent(WeaponMesh);
 
 	WeaponCollisionBox = CreateDefaultSubobject<UBoxComponent>("WeaponCollisionBox");
