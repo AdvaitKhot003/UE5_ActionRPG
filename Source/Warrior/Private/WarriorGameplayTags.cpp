@@ -26,6 +26,7 @@ namespace WarriorGameplayTags
 
 	/** Shared Ability Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Ability_HitReact, "SharedTag.Ability.HitReact");
+	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Ability_Death, "SharedTag.Ability.Death");
 
 	/** Player State Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_State_WeaponTransition, "PlayerTag.State.WeaponTransition");
@@ -55,4 +56,7 @@ namespace WarriorGameplayTags
 
 	/** Player Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
+
+	/** Shared Status Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Status_IsDead, "SharedTag.Status.IsDead");
 }
