@@ -8,7 +8,7 @@
 
 class UBoxComponent;
 
-DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*)
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*);
 
 UCLASS()
 class WARRIOR_API AWarriorWeaponBase : public AActor

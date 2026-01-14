@@ -26,10 +26,10 @@ public:
 	AWarriorHeroCharacter();
 
 	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
-	FORCEINLINE UHeroUIComponent* GetHeroUIComponent() const { return HeroUIComponent; }
 
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UHeroUIComponent* GetHeroUIComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;

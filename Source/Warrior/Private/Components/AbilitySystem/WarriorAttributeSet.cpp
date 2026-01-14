@@ -5,6 +5,9 @@
 #include "GameplayEffectExtension.h"
 #include "WarriorFunctionLibrary.h"
 #include "WarriorGameplayTags.h"
+#include "Interfaces/PawnUIInterface.h"
+#include "Components/UI/PawnUIComponent.h"
+#include "Components/UI/HeroUIComponent.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -20,16 +23,33 @@ UWarriorAttributeSet::UWarriorAttributeSet()
 
 void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
+	if (!CachedPawnUIInterface.IsValid())
+	{
+		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
+	}
+	
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s did not implement IPawnUIInterface"), *Data.Target.GetAvatarActor()->GetName());
+
+	const UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
+	checkf(PawnUIComponent, TEXT("Could not extract the PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetName());
+	
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
 		const float NewHealth = FMath::Clamp(GetHealth(), 0.f, GetMaxHealth());
 		SetHealth(NewHealth);
+
+		PawnUIComponent->OnHealthChanged.Broadcast(GetHealth()/GetMaxHealth());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetRageAttribute())
 	{
 		const float NewRage = FMath::Clamp(GetRage(), 0.f, GetMaxRage());
 		SetRage(NewRage);
+
+		if (const UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		{
+			HeroUIComponent->OnRageChanged.Broadcast(GetRage()/GetMaxRage());
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
@@ -44,6 +64,8 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 
 		Debug::Print(DebugMessage, FColor::Green);
 
+		PawnUIComponent->OnHealthChanged.Broadcast(GetHealth()/GetMaxHealth());
+		
 		if (NewHealth == 0.f)
 		{
 			UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(),
