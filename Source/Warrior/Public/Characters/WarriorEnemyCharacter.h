@@ -21,10 +21,10 @@ public:
 	AWarriorEnemyCharacter();
 
 	FORCEINLINE UEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent; }
-	FORCEINLINE UEnemyUIComponent* GetEnemyUIComponent() const { return EnemyUIComponent; }
 
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;

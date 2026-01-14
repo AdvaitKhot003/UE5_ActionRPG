@@ -30,7 +30,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 	
 	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s did not implement IPawnUIInterface"), *Data.Target.GetAvatarActor()->GetName());
 
-	const UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
+	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
 	checkf(PawnUIComponent, TEXT("Could not extract the PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetName());
 	
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
@@ -38,7 +38,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 		const float NewHealth = FMath::Clamp(GetHealth(), 0.f, GetMaxHealth());
 		SetHealth(NewHealth);
 
-		PawnUIComponent->OnHealthChanged.Broadcast(GetHealth()/GetMaxHealth());
+		PawnUIComponent->HandleHealthChanged(GetHealth(), GetMaxHealth());
 	}
 
 	if (Data.EvaluatedData.Attribute == GetRageAttribute())
@@ -46,9 +46,9 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 		const float NewRage = FMath::Clamp(GetRage(), 0.f, GetMaxRage());
 		SetRage(NewRage);
 
-		if (const UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
+		if (UHeroUIComponent* HeroUIComponent = CachedPawnUIInterface->GetHeroUIComponent())
 		{
-			HeroUIComponent->OnRageChanged.Broadcast(GetRage()/GetMaxRage());
+			HeroUIComponent->HandleRageChanged(GetRage(), GetMaxRage());
 		}
 	}
 
@@ -64,7 +64,7 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 
 		Debug::Print(DebugMessage, FColor::Green);
 
-		PawnUIComponent->OnHealthChanged.Broadcast(GetHealth()/GetMaxHealth());
+		PawnUIComponent->HandleHealthChanged(GetHealth(), GetMaxHealth());
 		
 		if (GetHealth() == 0.f)
 		{

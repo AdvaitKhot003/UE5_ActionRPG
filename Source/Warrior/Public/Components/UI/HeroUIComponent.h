@@ -17,4 +17,6 @@ class WARRIOR_API UHeroUIComponent : public UPawnUIComponent
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnPercentChangedDelegate OnRageChanged;
+
+	void HandleRageChanged(float NewRage, float MaxRage);
 };

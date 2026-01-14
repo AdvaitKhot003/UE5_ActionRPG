@@ -19,4 +19,6 @@ class WARRIOR_API UPawnUIComponent : public UPawnExtensionComponentBase
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnPercentChangedDelegate OnHealthChanged;
+
+	void HandleHealthChanged(float NewHealth, float MaxHealth);
 };
