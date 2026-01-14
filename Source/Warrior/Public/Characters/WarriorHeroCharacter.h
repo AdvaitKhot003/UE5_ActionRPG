@@ -8,6 +8,7 @@
 #include "WarriorHeroCharacter.generated.h"
 
 struct FInputActionValue;
+class UHeroUIComponent;
 class UHeroCombatComponent;
 class UDataAsset_InputConfig;
 class UCameraComponent;
@@ -25,8 +26,10 @@ public:
 	AWarriorHeroCharacter();
 
 	FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return HeroCombatComponent; }
+	FORCEINLINE UHeroUIComponent* GetHeroUIComponent() const { return HeroUIComponent; }
 
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
 
 protected:
 	virtual void PossessedBy(AController* NewController) override;
@@ -45,6 +48,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	UHeroCombatComponent* HeroCombatComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+	UHeroUIComponent* HeroUIComponent;
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
