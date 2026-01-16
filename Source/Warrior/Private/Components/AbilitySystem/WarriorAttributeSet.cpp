@@ -28,10 +28,13 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffec
 		CachedPawnUIInterface = TWeakInterfacePtr<IPawnUIInterface>(Data.Target.GetAvatarActor());
 	}
 	
-	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s did not implement IPawnUIInterface"), *Data.Target.GetAvatarActor()->GetName());
+	checkf(CachedPawnUIInterface.IsValid(), TEXT("%s did not implement IPawnUIInterface"),
+		*Data.Target.GetAvatarActor()->GetActorNameOrLabel());
 
 	UPawnUIComponent* PawnUIComponent = CachedPawnUIInterface->GetPawnUIComponent();
-	checkf(PawnUIComponent, TEXT("Could not extract the PawnUIComponent from %s"), *Data.Target.GetAvatarActor()->GetName());
+	
+	checkf(PawnUIComponent, TEXT("Could not extract the PawnUIComponent from %s"),
+		*Data.Target.GetAvatarActor()->GetActorNameOrLabel());
 	
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
