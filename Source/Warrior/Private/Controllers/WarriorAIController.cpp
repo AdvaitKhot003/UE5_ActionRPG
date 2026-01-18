@@ -22,16 +22,57 @@ AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectIniti
 	EnemyAISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = false;
 	EnemyAISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = false;
 	EnemyAISenseConfig_Sight->SightRadius = 5000.f;
-	EnemyAISenseConfig_Sight->LoseSightRadius = 0.f;
+	EnemyAISenseConfig_Sight->LoseSightRadius = 5500.f;
 	EnemyAISenseConfig_Sight->PeripheralVisionAngleDegrees = 360.f;
 
 	EnemyAIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>("EnemyAIPerceptionComponent");
 	EnemyAIPerceptionComponent->ConfigureSense(*EnemyAISenseConfig_Sight);
-	EnemyAIPerceptionComponent->SetDominantSense(UAISenseConfig_Sight::StaticClass());
+	EnemyAIPerceptionComponent->SetDominantSense(UAISense_Sight::StaticClass());
 	EnemyAIPerceptionComponent->OnTargetPerceptionUpdated.AddUniqueDynamic(this, &AWarriorAIController::OnEnemyPerceptionUpdated);
+}
+
+void AWarriorAIController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	SetGenericTeamId(FGenericTeamId(1));
+}
+
+ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& Other) const
+{
+	const APawn* PawnToCheck = Cast<const APawn>(&Other);
+	
+	if (!PawnToCheck)
+	{
+		return ETeamAttitude::Neutral;
+	}
+
+	const IGenericTeamAgentInterface* OtherTeamAgent =
+		Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
+
+	if (!OtherTeamAgent)
+	{
+		return ETeamAttitude::Neutral;
+	}
+
+	return (OtherTeamAgent->GetGenericTeamId() == GetGenericTeamId())
+		? ETeamAttitude::Friendly
+		: ETeamAttitude::Hostile;
 }
 
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
+	if (!Actor)
+	{
+		return;
+	}
 	
+	if (Stimulus.WasSuccessfullySensed())
+	{
+		Debug::Print(Actor->GetActorNameOrLabel() + TEXT(" SENSED"), FColor::Green);
+	}
+	else
+	{
+		Debug::Print(Actor->GetActorNameOrLabel() + TEXT(" LOST"), FColor::Red);
+	}
 }

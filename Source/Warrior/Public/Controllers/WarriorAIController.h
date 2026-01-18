@@ -20,6 +20,9 @@ class WARRIOR_API AWarriorAIController : public AAIController
 
 public:
 	AWarriorAIController(const FObjectInitializer& ObjectInitializer);
+	
+	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
+	virtual void OnPossess(APawn* InPawn) override;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI|AIController")
