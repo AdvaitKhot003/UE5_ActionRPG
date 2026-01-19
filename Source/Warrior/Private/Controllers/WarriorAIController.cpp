@@ -5,6 +5,7 @@
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -62,17 +63,11 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	if (!Actor)
+	if (Stimulus.WasSuccessfullySensed() && Actor)
 	{
-		return;
-	}
-	
-	if (Stimulus.WasSuccessfullySensed())
-	{
-		Debug::Print(Actor->GetActorNameOrLabel() + TEXT(" SENSED"), FColor::Green);
-	}
-	else
-	{
-		Debug::Print(Actor->GetActorNameOrLabel() + TEXT(" LOST"), FColor::Red);
+		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+		{
+			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
+		}
 	}
 }
