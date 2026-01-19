@@ -12,12 +12,6 @@
 AWarriorAIController::AWarriorAIController(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>("PathFollowingComponent"))
 {
-	if (UCrowdFollowingComponent* CrowdFollowingComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
-	{
-		const FString Message = FString::Printf(TEXT("PathFollowingComponent: %s"), *CrowdFollowingComp->GetClass()->GetName());
-		Debug::Print(Message, FColor::Green);
-	}
-	
 	EnemyAISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>("EnemyAISenseConfig_Sight");
 	EnemyAISenseConfig_Sight->DetectionByAffiliation.bDetectEnemies = true;
 	EnemyAISenseConfig_Sight->DetectionByAffiliation.bDetectFriendlies = false;
@@ -37,6 +31,38 @@ void AWarriorAIController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 
 	SetGenericTeamId(FGenericTeamId(1));
+}
+
+void AWarriorAIController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (UCrowdFollowingComponent* CrowdFollowingComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
+	{
+		/** const FString Message = FString::Printf(TEXT("PathFollowingComponent: %s"), *CrowdFollowingComp->GetClass()->GetName());
+		Debug::Print(Message, FColor::Green); **/
+
+		CrowdFollowingComp->SetCrowdSimulationState(bShouldEnableDetourCrowdAvoidance?
+			ECrowdSimulationState::Enabled : ECrowdSimulationState::Disabled);
+
+		switch (DetourCrowdAvoidanceQuality)
+		{
+			case 1:
+				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);		break;
+			case 2:
+				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);	break;
+			case 3:
+				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);		break;
+			case 4:
+				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);		break;
+			default:
+																								break;
+		}
+
+		CrowdFollowingComp->SetAvoidanceGroup(1);
+		CrowdFollowingComp->SetGroupsToAvoid(0xFF);
+		CrowdFollowingComp->SetCrowdCollisionQueryRange(DetourCollisionQueryRange);
+	}
 }
 
 ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& Other) const
