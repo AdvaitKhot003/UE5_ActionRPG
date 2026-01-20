@@ -6,6 +6,7 @@
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -39,7 +40,7 @@ void AWarriorAIController::BeginPlay()
 
 	if (UCrowdFollowingComponent* CrowdFollowingComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
 	{
-		/** const FString Message = FString::Printf(TEXT("PathFollowingComponent: %s"), *CrowdFollowingComp->GetClass()->GetName());
+		/** const FString Message = FString::Printf(TEXT("PathFollowingComponent Class: %s"), *CrowdFollowingComp->GetClass()->GetName());
 		Debug::Print(Message, FColor::Green); **/
 
 		CrowdFollowingComp->SetCrowdSimulationState(bShouldEnableDetourCrowdAvoidance?
@@ -47,16 +48,11 @@ void AWarriorAIController::BeginPlay()
 
 		switch (DetourCrowdAvoidanceQuality)
 		{
-			case 1:
-				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);		break;
-			case 2:
-				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);	break;
-			case 3:
-				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);		break;
-			case 4:
-				CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);		break;
-			default:
-																								break;
+			case 1: CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);		break;
+			case 2: CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);	break;
+			case 3: CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);		break;
+			case 4: CrowdFollowingComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);		break;
+			default:																				break;
 		}
 
 		CrowdFollowingComp->SetAvoidanceGroup(1);
@@ -74,26 +70,32 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 		return ETeamAttitude::Neutral;
 	}
 
-	const IGenericTeamAgentInterface* OtherTeamAgent =
-		Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
+	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
 
 	if (!OtherTeamAgent)
 	{
 		return ETeamAttitude::Neutral;
 	}
 
-	return (OtherTeamAgent->GetGenericTeamId() == GetGenericTeamId())
-		? ETeamAttitude::Friendly
-		: ETeamAttitude::Hostile;
+	return (OtherTeamAgent->GetGenericTeamId() == GetGenericTeamId())? ETeamAttitude::Friendly : ETeamAttitude::Hostile;
 }
 
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
 	if (Stimulus.WasSuccessfullySensed() && Actor)
 	{
-		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
-		{
-			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
-		}
+		Debug::Print(FString::Printf(TEXT("Sensed=%d | Strength=%.2f | Age=%.2f"),
+			Stimulus.WasSuccessfullySensed(), Stimulus.Strength, Stimulus.GetAge()), FColor::Yellow);
+		
+		UBlackboardComponent* BlackboardComponent = GetBlackboardComponent();
+		check(BlackboardComponent);
+
+		static const FName TargetActorKeyName(TEXT("TargetActor"));
+		TargetActorKey = BlackboardComponent->GetKeyID(TargetActorKeyName);
+		
+		checkf(TargetActorKey != FBlackboard::InvalidKey,
+			TEXT("TargetActor key missing in Blackboard for %s"), *GetNameSafe(this));
+
+		BlackboardComponent->SetValue<UBlackboardKeyType_Object>(TargetActorKey, Actor);
 	}
 }
