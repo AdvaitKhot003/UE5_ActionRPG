@@ -77,7 +77,7 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 		return ETeamAttitude::Neutral;
 	}
 
-	return (OtherTeamAgent->GetGenericTeamId() == GetGenericTeamId())? ETeamAttitude::Friendly : ETeamAttitude::Hostile;
+	return (OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())? ETeamAttitude::Hostile : ETeamAttitude::Friendly;
 }
 
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
