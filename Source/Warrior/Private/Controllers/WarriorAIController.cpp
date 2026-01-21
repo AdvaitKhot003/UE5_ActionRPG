@@ -6,7 +6,6 @@
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -82,20 +81,17 @@ ETeamAttitude::Type AWarriorAIController::GetTeamAttitudeTowards(const AActor& O
 
 void AWarriorAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	if (Stimulus.WasSuccessfullySensed() && Actor)
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
-		Debug::Print(FString::Printf(TEXT("Sensed=%d | Strength=%.2f | Age=%.2f"),
-			Stimulus.WasSuccessfullySensed(), Stimulus.Strength, Stimulus.GetAge()), FColor::Yellow);
-		
-		UBlackboardComponent* BlackboardComponent = GetBlackboardComponent();
-		check(BlackboardComponent);
-
-		static const FName TargetActorKeyName(TEXT("TargetActor"));
-		TargetActorKey = BlackboardComponent->GetKeyID(TargetActorKeyName);
-		
-		checkf(TargetActorKey != FBlackboard::InvalidKey,
-			TEXT("TargetActor key missing in Blackboard for %s"), *GetNameSafe(this));
-
-		BlackboardComponent->SetValue<UBlackboardKeyType_Object>(TargetActorKey, Actor);
+		if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
+		{
+			if (Stimulus.WasSuccessfullySensed() && Actor)
+			{
+				Debug::Print(FString::Printf(TEXT("Sensed=%d | Strength=%.2f | Age=%.2f"),
+					Stimulus.WasSuccessfullySensed(), Stimulus.Strength, Stimulus.GetAge()), FColor::Yellow);
+				
+				BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
+			}
+		}
 	}
 }

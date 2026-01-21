@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "BehaviorTree/Blackboard/BlackboardKey.h"
 #include "WarriorAIController.generated.h"
 
 class UAIPerceptionComponent;
@@ -38,8 +37,6 @@ protected:
 	virtual void OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
 private:
-	FBlackboard::FKey TargetActorKey = FBlackboard::InvalidKey;
-	
 	UPROPERTY(EditDefaultsOnly, Category = "AI|Detour Crowd Avoidance Config")
 	bool bShouldEnableDetourCrowdAvoidance = true;
 
