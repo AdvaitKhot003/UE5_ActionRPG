@@ -35,9 +35,15 @@ protected:
 	UPROPERTY(Transient)
 	bool CachedHasAcceleration = false;
 
+	UPROPERTY(Transient)
+	float CachedLocomotionDirection = 0.f;
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
 	float GroundSpeed;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
 	bool bHasAcceleration;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
+	float LocomotionDirection;
 };
