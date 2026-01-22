@@ -57,6 +57,9 @@ namespace WarriorGameplayTags
 	/** Player Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(PlayerTag_Status_JumpToFinisher, "PlayerTag.Status.JumpToFinisher");
 
+	/** Enemy Status Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(EnemyTag_Status_Strafing, "EnemyTag.Status.Strafing");
+
 	/** Shared Status Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(SharedTag_Status_IsDead, "SharedTag.Status.IsDead");
 }

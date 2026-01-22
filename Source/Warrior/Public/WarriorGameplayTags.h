@@ -58,6 +58,9 @@ namespace WarriorGameplayTags
 	/** Player Status Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(PlayerTag_Status_JumpToFinisher);
 
+	/** Enemy Status Tags **/
+	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(EnemyTag_Status_Strafing);
+
 	/** Shared Status Tags **/
 	WARRIOR_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(SharedTag_Status_IsDead);
 }
