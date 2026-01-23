@@ -3,6 +3,7 @@
 
 #include "Items/Weapons/WarriorWeaponBase.h"
 #include "Components/BoxComponent.h"
+#include "WarriorFunctionLibrary.h"
 
 #include "WarriorDebugHelper.h"
 
@@ -27,13 +28,14 @@ AWarriorWeaponBase::AWarriorWeaponBase()
 void AWarriorWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+	const APawn* WeaponOwningPawn = GetInstigator<APawn>();
+	const APawn* HitPawn = Cast<APawn>(OtherActor);
 
 	checkf(WeaponOwningPawn, TEXT("Forgot to assign an instigator as owning pawn for the weapon: %s"), *GetName());
-
-	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	
+	if (HitPawn)
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UWarriorFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			//Debug::Print(GetName() + TEXT(" Begin Overlap with ") + HitPawn->GetName(), FColor::Green);
 			OnWeaponBeginHitTarget.ExecuteIfBound(OtherActor);
@@ -44,15 +46,16 @@ void AWarriorWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlap
 void AWarriorWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	APawn* WeaponOwningPawn = GetInstigator<APawn>();
+	const APawn* WeaponOwningPawn = GetInstigator<APawn>();
+	const APawn* HitPawn = Cast<APawn>(OtherActor);
 
 	checkf(WeaponOwningPawn, TEXT("Forgot to assign an instigator as owning pawn for the weapon: %s"), *GetName());
 
-	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	if (HitPawn)
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UWarriorFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
-			//Debug::Print(GetName() + TEXT(" End Overlap with ") + HitPawn->GetName(), FColor::Red);
+			//Debug::Print(GetName() + TEXT(" End Overlap with ") + HitPawn->GetName(), FColor::Green);
 			OnWeaponEndHitTarget.ExecuteIfBound(OtherActor);
 		}
 	}
